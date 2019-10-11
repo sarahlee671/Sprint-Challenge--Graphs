@@ -21,7 +21,34 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+# track path traversed
+traversalPath = []
+# track which rooms are already visited
+visited = {}
+# track traversed reverse path
+reversedPath = []
+# reverse directions
+reverse_direction = {'n':'s', 's':'n', 'e':'w', 'w':'e'}
+
+# start in room '0' which contains exits (can use getExits method from room)
+visited[0] = player.currentRoom.getExits()
+
+
+
+
+while len(visited) < len(roomGraph)-1:
+    # track rooms that the player already visited by current room id 
+    if player.currentRoom.id not in visited:
+        #Add to visited
+        visited[player.currentRoom.id] = player.currentRoom.getExits()
+        #Get the last direction and remove the path from visited
+        last_room = reversedPath[-1]
+        visited[player.currentRoom.id].remove(last_room)
+
+    # When you hit a dead end, reverse back 
+    while len(visited[player.currentRoom.id]) == 0:
+
+    # use the reversedPath to move back to a room path that hasn't been visited
 
 
 # TRAVERSAL TEST
